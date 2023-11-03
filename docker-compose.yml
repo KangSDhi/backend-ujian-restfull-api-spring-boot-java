@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:8.2.0
+    container_name: backend-ujian-spring-boot-java-db
+
+    ports:
+      - 3308:3306
+
+    environment:
+      MYSQL_ROOT_PASSWORD: 'toor'
+      MYSQL_DATABASE: 'ujian-db'
+      MYSQL_USER: 'spring'
+      MYSQL_PASSWORD: 'boot'
+
+    volumes:
+      - mysqldata:/var/lib/mysql
+
+volumes:
+  mysqldata:
+    driver: local
