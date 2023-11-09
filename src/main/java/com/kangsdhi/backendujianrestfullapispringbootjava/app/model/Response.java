@@ -1,4 +1,4 @@
-package com.kangsdhi.backendujianrestfullapispringbootjava.model;
+package com.kangsdhi.backendujianrestfullapispringbootjava.app.model;
 
 public class Response<T> {
 

@@ -1,4 +1,4 @@
-package com.kangsdhi.backendujianrestfullapispringbootjava.model.pengguna;
+package com.kangsdhi.backendujianrestfullapispringbootjava.app.model.pengguna;
 
 public class ResponsePengguna {
     private Integer NISN;

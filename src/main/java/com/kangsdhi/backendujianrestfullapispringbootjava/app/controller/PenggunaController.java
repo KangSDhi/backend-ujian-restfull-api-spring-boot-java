@@ -1,15 +1,16 @@
-package com.kangsdhi.backendujianrestfullapispringbootjava.controller;
+package com.kangsdhi.backendujianrestfullapispringbootjava.app.controller;
 
-import com.kangsdhi.backendujianrestfullapispringbootjava.model.Response;
-import com.kangsdhi.backendujianrestfullapispringbootjava.model.pengguna.RequestPengguna;
-import com.kangsdhi.backendujianrestfullapispringbootjava.model.pengguna.ResponsePengguna;
-import com.kangsdhi.backendujianrestfullapispringbootjava.repository.pengguna.Pengguna;
-import com.kangsdhi.backendujianrestfullapispringbootjava.repository.pengguna.PenggunaRepository;
-import com.kangsdhi.backendujianrestfullapispringbootjava.repository.role.RolePengguna;
+import com.kangsdhi.backendujianrestfullapispringbootjava.app.model.Response;
+import com.kangsdhi.backendujianrestfullapispringbootjava.app.model.pengguna.RequestPengguna;
+import com.kangsdhi.backendujianrestfullapispringbootjava.app.model.pengguna.ResponsePengguna;
+import com.kangsdhi.backendujianrestfullapispringbootjava.app.repository.pengguna.Pengguna;
+import com.kangsdhi.backendujianrestfullapispringbootjava.app.repository.pengguna.PenggunaRepository;
+import com.kangsdhi.backendujianrestfullapispringbootjava.app.repository.role.RolePengguna;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,15 +20,21 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/pengguna")
 public class PenggunaController {
 
+    private PasswordEncoder passwordEncoder;
+
     @Autowired
     PenggunaRepository penggunaRepository;
 
+    public PenggunaController(PasswordEncoder passwordEncoder){
+        this.passwordEncoder = passwordEncoder;
+    }
+
     @PostMapping("")
-    public ResponseEntity<Response<ResponsePengguna>> createPengguna(@RequestBody RequestPengguna requestPengguna) {
+    public ResponseEntity<Response<ResponsePengguna>> createPengguna(@RequestBody @Valid RequestPengguna requestPengguna) {
         try {
             RolePengguna rolePengguna = new RolePengguna();
             rolePengguna.setId(2L);
-            Pengguna _pengguna = penggunaRepository.save(new Pengguna(requestPengguna.getNISN(), requestPengguna.getNama(), requestPengguna.getEmail(), requestPengguna.getPassword(), rolePengguna, requestPengguna.getKelas_id()));
+            Pengguna _pengguna = penggunaRepository.save(new Pengguna(requestPengguna.getNISN(), requestPengguna.getNama(), requestPengguna.getEmail(), passwordEncoder.encode(requestPengguna.getPassword()), rolePengguna, requestPengguna.getKelas_id()));
 
             System.out.println(_pengguna.getRolePengguna().getId());
             Response<ResponsePengguna> response = getPenggunaResponse(_pengguna);
