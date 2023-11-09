@@ -1,9 +1,7 @@
-package com.kangsdhi.backendujianrestfullapispringbootjava.repository.pengguna;
+package com.kangsdhi.backendujianrestfullapispringbootjava.app.repository.pengguna;
 
-import com.kangsdhi.backendujianrestfullapispringbootjava.repository.role.RolePengguna;
+import com.kangsdhi.backendujianrestfullapispringbootjava.app.repository.role.RolePengguna;
 import jakarta.persistence.*;
-
-import java.io.Serializable;
 
 @Entity
 @Table(name = "pengguna")
@@ -13,7 +11,7 @@ public class Pengguna {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "NISN", nullable = true)
+    @Column(name = "NISN", nullable = true, unique = true)
     private Integer NISN;
 
     @Column(name = "nama", nullable = false)

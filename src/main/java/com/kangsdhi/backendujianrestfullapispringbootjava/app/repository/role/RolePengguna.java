@@ -1,4 +1,4 @@
-package com.kangsdhi.backendujianrestfullapispringbootjava.repository.role;
+package com.kangsdhi.backendujianrestfullapispringbootjava.app.repository.role;
 
 import jakarta.persistence.*;
 
@@ -29,5 +29,10 @@ public class RolePengguna {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    @Override
+    public String toString() {
+        return "RolePengguna [id="+id+", role="+role+"]";
     }
 }

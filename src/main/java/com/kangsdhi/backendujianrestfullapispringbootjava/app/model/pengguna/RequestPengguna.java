@@ -1,10 +1,21 @@
-package com.kangsdhi.backendujianrestfullapispringbootjava.model.pengguna;
+package com.kangsdhi.backendujianrestfullapispringbootjava.app.model.pengguna;
+
+import jakarta.validation.constraints.*;
 
 public class RequestPengguna {
 
+    @NotNull(message = "NISN Tidak Boleh Kosong!")
     private Integer NISN;
+    @NotNull(message = "Nama Tidak Boleh Kosong!")
+    @NotBlank(message = "Nama Tidak Boleh Kosong!")
     private String nama;
+    @NotNull(message = "Email Tidak Boleh Kosong!")
+    @NotBlank(message = "Email Tidak Boleh Kosong!")
+    @Email(message = "Bukan Format Email!")
     private String email;
+    @NotNull(message = "Password Tidak Boleh Kosong!")
+    @NotBlank(message = "Password Tidak Boleh Kosong!")
+//    @Min(value = 8, message = "Password Minimal 8 Karakter!")
     private String password;
     private Long kelas_id;
 
