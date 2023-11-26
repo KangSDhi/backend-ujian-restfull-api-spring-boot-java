@@ -34,7 +34,7 @@ public class PenggunaController {
         try {
             RolePengguna rolePengguna = new RolePengguna();
             rolePengguna.setId(2L);
-            Pengguna _pengguna = penggunaRepository.save(new Pengguna(requestPengguna.getNISN(), requestPengguna.getNama(), requestPengguna.getEmail(), passwordEncoder.encode(requestPengguna.getPassword()), rolePengguna, requestPengguna.getKelas_id()));
+            Pengguna _pengguna = penggunaRepository.save(new Pengguna(requestPengguna.getNISN(), requestPengguna.getNama(), requestPengguna.getEmail(), passwordEncoder.encode(requestPengguna.getPassword()), rolePengguna, null));
 
             System.out.println(_pengguna.getRolePengguna().getId());
             Response<ResponsePengguna> response = getPenggunaResponse(_pengguna);
@@ -53,7 +53,7 @@ public class PenggunaController {
         responsePengguna.setEmail(_pengguna.getEmail());
         responsePengguna.setPassword(_pengguna.getPassword());
         responsePengguna.setRole_id(_pengguna.getRolePengguna().getId());
-        responsePengguna.setKelas_id(_pengguna.getKelas_id());
+//        responsePengguna.setKelas_id(_pengguna.getKelas_id());
         return new Response<>(201, "Berhasil Membuat Pengguna", responsePengguna);
     }
 }

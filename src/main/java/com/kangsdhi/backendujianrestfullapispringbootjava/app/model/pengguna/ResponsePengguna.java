@@ -1,18 +1,18 @@
 package com.kangsdhi.backendujianrestfullapispringbootjava.app.model.pengguna;
 
 public class ResponsePengguna {
-    private Integer NISN;
+    private Long NISN;
     private String nama;
     private String email;
     private String password;
     private Long role_id;
     private Long kelas_id;
 
-    public Integer getNISN() {
+    public Long getNISN() {
         return NISN;
     }
 
-    public void setNISN(Integer NISN) {
+    public void setNISN(Long NISN) {
         this.NISN = NISN;
     }
 

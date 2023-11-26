@@ -5,7 +5,7 @@ import jakarta.validation.constraints.*;
 public class RequestPengguna {
 
     @NotNull(message = "NISN Tidak Boleh Kosong!")
-    private Integer NISN;
+    private Long NISN;
     @NotNull(message = "Nama Tidak Boleh Kosong!")
     @NotBlank(message = "Nama Tidak Boleh Kosong!")
     private String nama;
@@ -19,7 +19,7 @@ public class RequestPengguna {
     private String password;
     private Long kelas_id;
 
-    public RequestPengguna(Integer NISN, String nama, String email, String password, Long role_id, Long kelas_id){
+    public RequestPengguna(Long NISN, String nama, String email, String password, Long role_id, Long kelas_id){
         this.NISN = NISN;
         this.nama = nama;
         this.email = email;
@@ -27,7 +27,7 @@ public class RequestPengguna {
         this.kelas_id = kelas_id;
     }
 
-    public Integer getNISN() {
+    public Long getNISN() {
         return NISN;
     }
     public String getNama() {

@@ -1,5 +1,6 @@
 package com.kangsdhi.backendujianrestfullapispringbootjava.app.repository.pengguna;
 
+import com.kangsdhi.backendujianrestfullapispringbootjava.app.repository.kelas.Kelas;
 import com.kangsdhi.backendujianrestfullapispringbootjava.app.repository.role.RolePengguna;
 import jakarta.persistence.*;
 
@@ -12,7 +13,7 @@ public class Pengguna {
     private Long id;
 
     @Column(name = "NISN", nullable = true, unique = true)
-    private Integer NISN;
+    private Long NISN;
 
     @Column(name = "nama", nullable = false)
     private String nama;
@@ -23,38 +24,36 @@ public class Pengguna {
     @Column(name = "password", nullable = false)
     private String password;
 
-//    @Column(name = "role_id", nullable = false)
-//    private Long role_id;
-
     @ManyToOne
-    @JoinColumn(name = "role_id", referencedColumnName = "id")
+    @JoinColumn(name = "role_id", referencedColumnName = "id", nullable = false)
     private RolePengguna rolePengguna;
 
-    @Column(name = "kelas_id", nullable = true)
-    private Long kelas_id;
+    @ManyToOne
+    @JoinColumn(name = "kelas_id", referencedColumnName = "id", nullable = true)
+    private Kelas kelas;
 
     public Pengguna() {
 
     }
 
-    public Pengguna(Integer NISN, String nama, String email, String password, RolePengguna rolePengguna, Long kelas_id){
+    public Pengguna(Long NISN, String nama, String email, String password, RolePengguna rolePengguna, Kelas kelas){
         this.NISN = NISN;
         this.nama = nama;
         this.email = email;
         this.password = password;
         this.rolePengguna = rolePengguna;
-        this.kelas_id = kelas_id;
+        this.kelas = kelas;
     }
 
     public Long getId() {
         return id;
     }
 
-    public Integer getNISN() {
+    public Long getNISN() {
         return NISN;
     }
 
-    public void setNISN(Integer NISN) {
+    public void setNISN(Long NISN) {
         this.NISN = NISN;
     }
 
@@ -90,16 +89,16 @@ public class Pengguna {
         this.rolePengguna = rolePengguna;
     }
 
-    public Long getKelas_id() {
-        return kelas_id;
+    public Kelas getKelas() {
+        return kelas;
     }
 
-    public void setKelas_id(Long kelas_id) {
-        this.kelas_id = kelas_id;
+    public void setKelas(Kelas kelas) {
+        this.kelas = kelas;
     }
 
     @Override
     public String toString(){
-        return "Pengguna [id="+id+", NISN="+NISN+", nama="+nama+", email="+email+", password="+password+", role_id="+rolePengguna.getId().toString()+", kelas_id="+kelas_id+"]";
+        return "Pengguna [id="+id+", NISN="+NISN+", nama="+nama+", email="+email+", password="+password+", role_id="+rolePengguna.getId().toString()+"]";
     }
 }
