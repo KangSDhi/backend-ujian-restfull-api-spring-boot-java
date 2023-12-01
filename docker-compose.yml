@@ -17,6 +17,27 @@ services:
     volumes:
       - mysqldata:/var/lib/mysql
 
+    networks:
+      - ujian-spring-boot-java-net
+
+  pma:
+    image: phpmyadmin:latest
+    container_name: backend-ujian-spring-boot-java-pma
+    depends_on:
+      - db
+    environment:
+      PMA_HOST: db
+    ports:
+      - 8008:80
+    networks:
+      - ujian-spring-boot-java-net
+
+# Volumes
 volumes:
   mysqldata:
     driver: local
+
+# Networks
+networks:
+  ujian-spring-boot-java-net:
+    driver: bridge
