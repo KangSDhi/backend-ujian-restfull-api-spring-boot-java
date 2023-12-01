@@ -42,7 +42,7 @@ public class SiswaSeeder {
 
         int size = 1000;
 
-        if (countSiswa <= size){
+        if (countSiswa == 0){
 
             for (var i = 0; i <= size - 1; i++){
                 Faker faker = new Faker();

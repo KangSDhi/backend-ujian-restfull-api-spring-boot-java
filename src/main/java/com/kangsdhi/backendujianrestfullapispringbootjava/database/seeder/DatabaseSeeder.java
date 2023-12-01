@@ -13,6 +13,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.kangsdhi.backendujianrestfullapispringbootjava.database.seeder.JurusanSeeder;
 
+import java.text.ParseException;
+
 @Service
 public class DatabaseSeeder {
 
@@ -34,13 +36,21 @@ public class DatabaseSeeder {
     @Autowired
     SiswaSeeder siswaSeeder;
 
+    @Autowired
+    SoalSeeder soalSeeder;
+
+    @Autowired
+    BankSoalSeeder bankSoalSeeder;
+
     @EventListener
-    public void seed(ContextRefreshedEvent event){
+    public void seed(ContextRefreshedEvent event) throws ParseException {
         rolePenggunaSeeder.createRole();
         jurusanSeeder.createJurusan();
         kelasSeeder.createKelas();
         adminSeeder.createAdmin();
         guruSeeder.createGuru();
         siswaSeeder.createSiswa();
+        soalSeeder.createSoal();
+        bankSoalSeeder.createBankSoal();
     }
 }
