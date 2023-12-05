@@ -1,6 +1,6 @@
 package com.kangsdhi.backendujianrestfullapispringbootjava.app.util.validation;
 
-import com.kangsdhi.backendujianrestfullapispringbootjava.app.model.error.ErrorResponse;
+import com.kangsdhi.backendujianrestfullapispringbootjava.app.dto.error.ErrorResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;

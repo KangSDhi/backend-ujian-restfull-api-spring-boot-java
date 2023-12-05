@@ -1,10 +1,10 @@
 package com.kangsdhi.backendujianrestfullapispringbootjava.database.seeder;
 
-import com.kangsdhi.backendujianrestfullapispringbootjava.app.repository.bank_soal.BankSoal;
-import com.kangsdhi.backendujianrestfullapispringbootjava.app.repository.bank_soal.BankSoalRepository;
-import com.kangsdhi.backendujianrestfullapispringbootjava.app.repository.kelas.Tingkat;
-import com.kangsdhi.backendujianrestfullapispringbootjava.app.repository.soal.Soal;
-import com.kangsdhi.backendujianrestfullapispringbootjava.app.repository.soal.SoalRepository;
+import com.kangsdhi.backendujianrestfullapispringbootjava.app.model.BankSoal;
+import com.kangsdhi.backendujianrestfullapispringbootjava.app.repository.BankSoalRepository;
+import com.kangsdhi.backendujianrestfullapispringbootjava.app.enums.Tingkat;
+import com.kangsdhi.backendujianrestfullapispringbootjava.app.model.Soal;
+import com.kangsdhi.backendujianrestfullapispringbootjava.app.repository.SoalRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

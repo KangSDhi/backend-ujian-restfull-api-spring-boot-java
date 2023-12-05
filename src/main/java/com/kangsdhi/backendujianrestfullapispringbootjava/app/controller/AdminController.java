@@ -1,12 +1,12 @@
 package com.kangsdhi.backendujianrestfullapispringbootjava.app.controller;
 
-import com.kangsdhi.backendujianrestfullapispringbootjava.app.model.Response;
-import com.kangsdhi.backendujianrestfullapispringbootjava.app.model.admin.RequestRegisterAdmin;
-import com.kangsdhi.backendujianrestfullapispringbootjava.app.model.admin.ResponseRegisterAdmin;
-import com.kangsdhi.backendujianrestfullapispringbootjava.app.model.error.ErrorResponse;
-import com.kangsdhi.backendujianrestfullapispringbootjava.app.repository.pengguna.Pengguna;
-import com.kangsdhi.backendujianrestfullapispringbootjava.app.repository.pengguna.PenggunaRepository;
-import com.kangsdhi.backendujianrestfullapispringbootjava.app.repository.role.RolePengguna;
+import com.kangsdhi.backendujianrestfullapispringbootjava.app.dto.Response;
+import com.kangsdhi.backendujianrestfullapispringbootjava.app.dto.admin.RequestRegisterAdmin;
+import com.kangsdhi.backendujianrestfullapispringbootjava.app.dto.admin.ResponseRegisterAdmin;
+import com.kangsdhi.backendujianrestfullapispringbootjava.app.dto.error.ErrorResponse;
+import com.kangsdhi.backendujianrestfullapispringbootjava.app.model.Pengguna;
+import com.kangsdhi.backendujianrestfullapispringbootjava.app.repository.PenggunaRepository;
+import com.kangsdhi.backendujianrestfullapispringbootjava.app.model.RolePengguna;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

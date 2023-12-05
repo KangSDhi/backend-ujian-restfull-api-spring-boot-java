@@ -1,7 +1,7 @@
 package com.kangsdhi.backendujianrestfullapispringbootjava.database.seeder;
 
-import com.kangsdhi.backendujianrestfullapispringbootjava.app.repository.jurusan.Jurusan;
-import com.kangsdhi.backendujianrestfullapispringbootjava.app.repository.jurusan.JurusanRepository;
+import com.kangsdhi.backendujianrestfullapispringbootjava.app.model.Jurusan;
+import com.kangsdhi.backendujianrestfullapispringbootjava.app.repository.JurusanRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
