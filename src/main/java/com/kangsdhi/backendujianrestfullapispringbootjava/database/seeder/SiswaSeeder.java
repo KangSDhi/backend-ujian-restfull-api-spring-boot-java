@@ -1,17 +1,16 @@
 package com.kangsdhi.backendujianrestfullapispringbootjava.database.seeder;
 
-import com.kangsdhi.backendujianrestfullapispringbootjava.app.repository.kelas.Kelas;
-import com.kangsdhi.backendujianrestfullapispringbootjava.app.repository.kelas.KelasRepository;
-import com.kangsdhi.backendujianrestfullapispringbootjava.app.repository.pengguna.Pengguna;
-import com.kangsdhi.backendujianrestfullapispringbootjava.app.repository.pengguna.PenggunaRepository;
-import com.kangsdhi.backendujianrestfullapispringbootjava.app.repository.role.RolePengguna;
-import com.kangsdhi.backendujianrestfullapispringbootjava.app.repository.role.RolePenggunaRepository;
+import com.kangsdhi.backendujianrestfullapispringbootjava.app.model.Kelas;
+import com.kangsdhi.backendujianrestfullapispringbootjava.app.repository.KelasRepository;
+import com.kangsdhi.backendujianrestfullapispringbootjava.app.model.Pengguna;
+import com.kangsdhi.backendujianrestfullapispringbootjava.app.repository.PenggunaRepository;
+import com.kangsdhi.backendujianrestfullapispringbootjava.app.model.RolePengguna;
+import com.kangsdhi.backendujianrestfullapispringbootjava.app.repository.RolePenggunaRepository;
 import net.datafaker.Faker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
 import java.util.List;
 
 @Service

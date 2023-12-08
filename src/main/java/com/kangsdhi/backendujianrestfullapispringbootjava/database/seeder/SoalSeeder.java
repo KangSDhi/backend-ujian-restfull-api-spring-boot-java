@@ -1,12 +1,12 @@
 package com.kangsdhi.backendujianrestfullapispringbootjava.database.seeder;
 
-import com.kangsdhi.backendujianrestfullapispringbootjava.app.repository.jurusan.Jurusan;
-import com.kangsdhi.backendujianrestfullapispringbootjava.app.repository.jurusan.JurusanRepository;
-import com.kangsdhi.backendujianrestfullapispringbootjava.app.repository.kelas.Tingkat;
-import com.kangsdhi.backendujianrestfullapispringbootjava.app.repository.soal.Acak;
-import com.kangsdhi.backendujianrestfullapispringbootjava.app.repository.soal.Soal;
-import com.kangsdhi.backendujianrestfullapispringbootjava.app.repository.soal.SoalRepository;
-import com.kangsdhi.backendujianrestfullapispringbootjava.app.repository.soal.Tipe;
+import com.kangsdhi.backendujianrestfullapispringbootjava.app.model.Jurusan;
+import com.kangsdhi.backendujianrestfullapispringbootjava.app.repository.JurusanRepository;
+import com.kangsdhi.backendujianrestfullapispringbootjava.app.enums.Tingkat;
+import com.kangsdhi.backendujianrestfullapispringbootjava.app.enums.Acak;
+import com.kangsdhi.backendujianrestfullapispringbootjava.app.model.Soal;
+import com.kangsdhi.backendujianrestfullapispringbootjava.app.repository.SoalRepository;
+import com.kangsdhi.backendujianrestfullapispringbootjava.app.enums.Tipe;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

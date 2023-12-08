@@ -1,6 +1,6 @@
 package com.kangsdhi.backendujianrestfullapispringbootjava.app.config.auth;
 
-import com.kangsdhi.backendujianrestfullapispringbootjava.app.repository.pengguna.Pengguna;
+import com.kangsdhi.backendujianrestfullapispringbootjava.app.model.Pengguna;
 import io.jsonwebtoken.*;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.security.core.AuthenticationException;

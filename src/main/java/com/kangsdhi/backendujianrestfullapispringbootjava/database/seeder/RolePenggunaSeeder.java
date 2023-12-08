@@ -1,7 +1,7 @@
 package com.kangsdhi.backendujianrestfullapispringbootjava.database.seeder;
 
-import com.kangsdhi.backendujianrestfullapispringbootjava.app.repository.role.RolePengguna;
-import com.kangsdhi.backendujianrestfullapispringbootjava.app.repository.role.RolePenggunaRepository;
+import com.kangsdhi.backendujianrestfullapispringbootjava.app.model.RolePengguna;
+import com.kangsdhi.backendujianrestfullapispringbootjava.app.repository.RolePenggunaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

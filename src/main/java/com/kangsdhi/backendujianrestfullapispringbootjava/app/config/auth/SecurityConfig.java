@@ -1,5 +1,6 @@
 package com.kangsdhi.backendujianrestfullapispringbootjava.app.config.auth;
 
+import com.kangsdhi.backendujianrestfullapispringbootjava.app.model.RolePengguna;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
