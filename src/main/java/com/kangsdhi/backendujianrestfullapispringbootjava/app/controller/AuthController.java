@@ -1,7 +1,8 @@
 package com.kangsdhi.backendujianrestfullapispringbootjava.app.controller;
 
-import com.kangsdhi.backendujianrestfullapispringbootjava.app.dto.auth.RequestAuthPengguna;
-import com.kangsdhi.backendujianrestfullapispringbootjava.app.dto.auth.RequestAuthSiswa;
+import com.kangsdhi.backendujianrestfullapispringbootjava.app.dto.auth.AuthPenggunaDTO;
+import com.kangsdhi.backendujianrestfullapispringbootjava.app.dto.auth.AuthSiswaDTO;
+import com.kangsdhi.backendujianrestfullapispringbootjava.app.dto.pengguna.PenggunaDTO;
 import com.kangsdhi.backendujianrestfullapispringbootjava.app.service.AuthService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,12 +20,12 @@ public class AuthController {
     AuthService authService;
 
     @PostMapping("/login/pengguna")
-    public ResponseEntity<Object> loginPengguna(@RequestBody @Valid RequestAuthPengguna requestAuth){
-        return authService.loginPenggunaNonSiswa(requestAuth);
+    public ResponseEntity<Object> loginPengguna(@RequestBody @Valid AuthPenggunaDTO authPenggunaDTO){
+        return authService.loginPenggunaNonSiswa(authPenggunaDTO);
     }
 
     @PostMapping("/login/siswa")
-    public ResponseEntity<Object> loginSiswa(@RequestBody @Valid RequestAuthSiswa requestAuthSiswa){
-        return authService.loginPenggunaSiswa(requestAuthSiswa);
+    public ResponseEntity<Object> loginSiswa(@RequestBody @Valid AuthSiswaDTO authSiswaDTO){
+        return authService.loginPenggunaSiswa(authSiswaDTO);
     }
 }

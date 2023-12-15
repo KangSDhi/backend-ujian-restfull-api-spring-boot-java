@@ -5,6 +5,7 @@ import com.kangsdhi.backendujianrestfullapispringbootjava.app.repository.Penggun
 import com.kangsdhi.backendujianrestfullapispringbootjava.app.model.RolePengguna;
 import com.kangsdhi.backendujianrestfullapispringbootjava.app.repository.RolePenggunaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -17,13 +18,9 @@ public class AdminSeeder {
     @Autowired
     RolePenggunaRepository rolePenggunaRepository;
 
-    private final PasswordEncoder passwordEncoder;
+    private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     private final String ADMIN = "ADMIN";
-
-    public AdminSeeder(PasswordEncoder passwordEncoder){
-        this.passwordEncoder = passwordEncoder;
-    }
 
     public void createAdmin(){
         String nama = "Sigit Boworaharjo";

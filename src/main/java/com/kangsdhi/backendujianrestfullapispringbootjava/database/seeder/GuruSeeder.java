@@ -7,6 +7,7 @@ import com.kangsdhi.backendujianrestfullapispringbootjava.app.repository.Penggun
 import com.kangsdhi.backendujianrestfullapispringbootjava.app.model.RolePengguna;
 import com.kangsdhi.backendujianrestfullapispringbootjava.app.repository.RolePenggunaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -22,14 +23,10 @@ public class GuruSeeder {
     @Autowired
     KelasRepository kelasRepository;
     
-    private final PasswordEncoder passwordEncoder;
+    private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
     
     private final String GURU = "GURU";
-    
-    public GuruSeeder(PasswordEncoder passwordEncoder){
-        this.passwordEncoder = passwordEncoder;
-    }
-    
+
     public void createGuru(){
         String nama = "Dhini Aprilia Budiarti";
         String email = "da.budiarti@gmail.com";

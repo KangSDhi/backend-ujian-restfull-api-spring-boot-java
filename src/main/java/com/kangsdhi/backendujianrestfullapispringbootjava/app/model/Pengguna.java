@@ -2,6 +2,9 @@ package com.kangsdhi.backendujianrestfullapispringbootjava.app.model;
 
 import jakarta.persistence.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Table(name = "pengguna")
 public class Pengguna {
@@ -22,9 +25,12 @@ public class Pengguna {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @ManyToOne
-    @JoinColumn(name = "role_id", referencedColumnName = "id", nullable = false)
-    private RolePengguna rolePengguna;
+//    @ManyToOne
+//    @JoinColumn(name = "role_id", referencedColumnName = "id", nullable = false)
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "pengguna_role", joinColumns = @JoinColumn(name = "pengguna_id", referencedColumnName = "id"),
+        inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+    private Set<RolePengguna> rolePengguna = new HashSet<RolePengguna>();
 
     @ManyToOne
     @JoinColumn(name = "kelas_id", referencedColumnName = "id", nullable = true)
@@ -39,12 +45,16 @@ public class Pengguna {
         this.nama = nama;
         this.email = email;
         this.password = password;
-        this.rolePengguna = rolePengguna;
+        this.rolePengguna.add(rolePengguna);
         this.kelas = kelas;
     }
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Long getNISN() {
@@ -79,12 +89,12 @@ public class Pengguna {
         this.password = password;
     }
 
-    public RolePengguna getRolePengguna() {
+    public Set<RolePengguna> getRolePengguna() {
         return rolePengguna;
     }
 
     public void setRolePengguna(RolePengguna rolePengguna) {
-        this.rolePengguna = rolePengguna;
+        this.rolePengguna.add(rolePengguna);
     }
 
     public Kelas getKelas() {
@@ -97,6 +107,6 @@ public class Pengguna {
 
     @Override
     public String toString(){
-        return "Pengguna [id="+id+", NISN="+NISN+", nama="+nama+", email="+email+", password="+password+", role_id="+rolePengguna.getId().toString()+"]";
+        return "Pengguna [id="+id+", NISN="+NISN+", nama="+nama+", email="+email+", password="+password+",]";
     }
 }

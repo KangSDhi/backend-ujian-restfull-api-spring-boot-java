@@ -4,7 +4,7 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
-public class RequestAuthPengguna {
+public class AuthPenggunaDTO {
 
     @NotNull(message = "Email Tidak Boleh Kosong!")
     @NotBlank(message = "Email Tidak Boleh Kosong!")

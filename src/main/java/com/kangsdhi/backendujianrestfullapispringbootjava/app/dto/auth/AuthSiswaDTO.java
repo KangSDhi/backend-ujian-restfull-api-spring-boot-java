@@ -3,7 +3,7 @@ package com.kangsdhi.backendujianrestfullapispringbootjava.app.dto.auth;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
-public class RequestAuthSiswa {
+public class AuthSiswaDTO {
 
     @NotNull(message = "NISN Tidak Boleh Kosong!")
     private Integer NISN;

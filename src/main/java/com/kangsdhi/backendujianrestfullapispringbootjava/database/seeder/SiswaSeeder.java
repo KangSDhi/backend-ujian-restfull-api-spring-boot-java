@@ -8,6 +8,7 @@ import com.kangsdhi.backendujianrestfullapispringbootjava.app.model.RolePengguna
 import com.kangsdhi.backendujianrestfullapispringbootjava.app.repository.RolePenggunaRepository;
 import net.datafaker.Faker;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -25,13 +26,9 @@ public class SiswaSeeder {
     @Autowired
     KelasRepository kelasRepository;
 
-    private final PasswordEncoder passwordEncoder;
+    private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     private final String SISWA = "SISWA";
-
-    public SiswaSeeder(PasswordEncoder passwordEncoder){
-        this.passwordEncoder = passwordEncoder;
-    }
 
     public void createSiswa(){
 
@@ -39,7 +36,7 @@ public class SiswaSeeder {
         List<Pengguna> penggunas = penggunaRepository.findPenggunasByRolePengguna(rolePengguna);
         int countSiswa = penggunas.toArray().length;
 
-        int size = 1000;
+        int size = 10;
 
         if (countSiswa == 0){
 
