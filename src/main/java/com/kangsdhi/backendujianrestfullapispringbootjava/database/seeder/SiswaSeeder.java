@@ -36,20 +36,21 @@ public class SiswaSeeder {
         List<Pengguna> penggunas = penggunaRepository.findPenggunasByRolePengguna(rolePengguna);
         int countSiswa = penggunas.toArray().length;
 
-        int size = 10;
+        int size = 5000;
 
         if (countSiswa == 0){
 
             for (var i = 0; i <= size - 1; i++){
                 Faker faker = new Faker();
 
+                int random1_10000 = (int)(Math.random()*10000+1);
                 int random1_1000 = (int)(Math.random()*1000+1);
-                int random1_100 = (int)(Math.random()*100+1);
+                int random1_550 = (int)(Math.random()*550+1);
                 int random1_55 = (int)(Math.random()*55+1);
 
-                String NISN = random1_55 +String.valueOf(random1_100)+ random1_1000 + random1_100;
+                String NISN = random1_550 +String.valueOf(random1_1000)+ random1_10000 + random1_1000;
                 String nama = faker.name().fullName();
-                String email = faker.name().username()+ random1_100 + "@gmail.com";
+                String email = faker.name().username()+ random1_1000 + "@gmail.com";
                 String password = "siswa123";
 
                 Kelas kelas = kelasRepository.findKelasById((long) random1_55);

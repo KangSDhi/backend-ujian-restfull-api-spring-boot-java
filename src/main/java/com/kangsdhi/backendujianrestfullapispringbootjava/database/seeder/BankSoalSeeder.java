@@ -22,7 +22,7 @@ public class BankSoalSeeder {
 
     public void createBankSoal() {
         int countAllBankSoal = bankSoalRepository.findAll().toArray().length;
-        System.out.println(countAllBankSoal);
+//        System.out.println(countAllBankSoal);
         if (countAllBankSoal == 0){
 
             Soal soalBahasaInggrisXI = soalRepository.findSoalByNamaAndTingkat("Bahasa Inggris", Tingkat.XI);

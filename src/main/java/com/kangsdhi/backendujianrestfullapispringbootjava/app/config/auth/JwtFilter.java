@@ -3,12 +3,16 @@ package com.kangsdhi.backendujianrestfullapispringbootjava.app.config.auth;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kangsdhi.backendujianrestfullapispringbootjava.app.service.PenggunaService;
 import com.kangsdhi.backendujianrestfullapispringbootjava.app.util.auth.TokenExpiredException;
+import com.kangsdhi.backendujianrestfullapispringbootjava.app.util.auth.TokenValidationException;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.MalformedJwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -26,6 +30,8 @@ import java.util.Map;
 @Component
 public class JwtFilter extends OncePerRequestFilter {
 
+    Logger logger = LoggerFactory.getLogger(JwtFilter.class);
+
     @Autowired
     PenggunaService penggunaService;
 
@@ -37,29 +43,66 @@ public class JwtFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        String authorizationHeader = request.getHeader("Authorization");
 
-        String token = null;
-        String username = null;
+        try{
+            String authorizationHeader = request.getHeader("Authorization");
 
-        Map<String, Object> errorDetails = new HashMap<>();
+            String token = null;
+            String username = null;
 
-
-        if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
-            token = authorizationHeader.substring(7);
-            username = jwtGeneratorAndValidator.extractUsername(token);
-        }
-
-        if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            UserDetails userDetails = penggunaService.loadUserByUsername(username);
-
-
-            if (jwtGeneratorAndValidator.validateToken(token, userDetails)) {
-                UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = jwtGeneratorAndValidator.getAuthenticationToken(token, SecurityContextHolder.getContext().getAuthentication(), userDetails);
-                usernamePasswordAuthenticationToken.setDetails(
-                        new WebAuthenticationDetailsSource().buildDetails(request));
-                SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+            if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
+                token = authorizationHeader.substring(7);
+                username = jwtGeneratorAndValidator.extractUsername(token);
             }
+
+            if (token == null && !request.getRequestURI().contains("/api/auth/login")){
+                throw new TokenValidationException("Token Kosong!");
+            }
+
+            if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+                UserDetails userDetails = penggunaService.loadUserByUsername(username);
+
+
+                if (jwtGeneratorAndValidator.validateToken(token, userDetails)) {
+                    UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = jwtGeneratorAndValidator.getAuthenticationToken(token, SecurityContextHolder.getContext().getAuthentication(), userDetails);
+                    usernamePasswordAuthenticationToken.setDetails(
+                            new WebAuthenticationDetailsSource().buildDetails(request));
+                    SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+                }
+            }
+        }catch (Exception | TokenValidationException exception){
+            Map<String, Object> errorDetails = new HashMap<>();
+
+            if (exception instanceof TokenValidationException){
+                logger.error("Token Validation Exception");
+                logger.error(((TokenValidationException) exception).getMessage());
+                errorDetails.put("code", HttpStatus.FORBIDDEN.value());
+                errorDetails.put("message", ((TokenValidationException) exception).getMessage());
+                response.setStatus(HttpStatus.FORBIDDEN.value());
+                response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+            }
+
+            if (exception instanceof MalformedJwtException){
+                logger.error("Malformed Jwt Exception");
+                logger.error(((MalformedJwtException) exception).getMessage());
+                logger.error("Format Token Salah!");
+                errorDetails.put("code", HttpStatus.FORBIDDEN.value());
+                errorDetails.put("message", "Format Token Salah!");
+                response.setStatus(HttpStatus.FORBIDDEN.value());
+                response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+            }
+
+            if (exception instanceof ExpiredJwtException){
+                logger.error("Expired Jwt Exception");
+                logger.error(((ExpiredJwtException) exception).getMessage());
+                logger.error("Token Kadaluarsa!");
+                errorDetails.put("code", HttpStatus.FORBIDDEN.value());
+                errorDetails.put("message", "Token Kadaluarsa!");
+                response.setStatus(HttpStatus.FORBIDDEN.value());
+                response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+            }
+
+            mapper.writeValue(response.getWriter(), errorDetails);
         }
 
         filterChain.doFilter(request, response);
