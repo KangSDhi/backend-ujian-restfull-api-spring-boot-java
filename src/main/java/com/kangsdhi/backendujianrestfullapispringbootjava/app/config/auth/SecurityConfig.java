@@ -1,6 +1,7 @@
 package com.kangsdhi.backendujianrestfullapispringbootjava.app.config.auth;
 
 import com.kangsdhi.backendujianrestfullapispringbootjava.app.advice.AdviceAccessDeniedHandler;
+//import com.kangsdhi.backendujianrestfullapispringbootjava.app.advice.AdviceExpiredJwtToken;
 import com.kangsdhi.backendujianrestfullapispringbootjava.app.service.PenggunaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -54,6 +55,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/siswa/**").hasAuthority("SISWA")
                         .anyRequest().authenticated())
                 .exceptionHandling((exception) -> exception.accessDeniedHandler(accessDeniedHandler()))
+//                .exceptionHandling((exception) -> exception.accessDeniedHandler(expiredJwtToken()))
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(authorizationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class);
         return http.build();
@@ -68,4 +70,9 @@ public class SecurityConfig {
     AdviceAccessDeniedHandler accessDeniedHandler(){
         return new AdviceAccessDeniedHandler();
     }
+
+//    @Bean
+//    AdviceExpiredJwtToken expiredJwtToken(){
+//        return new AdviceExpiredJwtToken();
+//    }
 }

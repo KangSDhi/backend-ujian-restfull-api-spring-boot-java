@@ -2,10 +2,8 @@ package com.kangsdhi.backendujianrestfullapispringbootjava.app.config.auth;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kangsdhi.backendujianrestfullapispringbootjava.app.service.PenggunaService;
-import com.kangsdhi.backendujianrestfullapispringbootjava.app.util.auth.TokenExpiredException;
 import com.kangsdhi.backendujianrestfullapispringbootjava.app.util.auth.TokenValidationException;
 import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.MalformedJwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -71,40 +69,41 @@ public class JwtFilter extends OncePerRequestFilter {
                 }
             }
         }catch (Exception | TokenValidationException exception){
-            Map<String, Object> errorDetails = new HashMap<>();
-
-            if (exception instanceof TokenValidationException){
-                logger.error("Token Validation Exception");
-                logger.error(((TokenValidationException) exception).getMessage());
-                errorDetails.put("code", HttpStatus.FORBIDDEN.value());
-                errorDetails.put("message", ((TokenValidationException) exception).getMessage());
-                response.setStatus(HttpStatus.FORBIDDEN.value());
-                response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-            }
-
-            if (exception instanceof MalformedJwtException){
-                logger.error("Malformed Jwt Exception");
-                logger.error(((MalformedJwtException) exception).getMessage());
-                logger.error("Format Token Salah!");
-                errorDetails.put("code", HttpStatus.FORBIDDEN.value());
-                errorDetails.put("message", "Format Token Salah!");
-                response.setStatus(HttpStatus.FORBIDDEN.value());
-                response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-            }
-
-            if (exception instanceof ExpiredJwtException){
-                logger.error("Expired Jwt Exception");
-                logger.error(((ExpiredJwtException) exception).getMessage());
-                logger.error("Token Kadaluarsa!");
-                errorDetails.put("code", HttpStatus.FORBIDDEN.value());
-                errorDetails.put("message", "Token Kadaluarsa!");
-                response.setStatus(HttpStatus.FORBIDDEN.value());
-                response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-            }
-
-            mapper.writeValue(response.getWriter(), errorDetails);
+            handleException(response,  exception);
         }
 
         filterChain.doFilter(request, response);
+    }
+
+    private void handleException(HttpServletResponse response, Throwable exception) throws IOException {
+        Map<String, Object> errorDetails = new HashMap<>();
+
+        if (exception instanceof TokenValidationException){
+            logger.error("Token Validation Exception");
+            logger.error(((TokenValidationException) exception).getMessage());
+            errorDetails.put("code", HttpStatus.FORBIDDEN.value());
+            errorDetails.put("message", ((TokenValidationException) exception).getMessage());
+        }
+
+        if (exception instanceof MalformedJwtException){
+            logger.error("Malformed Jwt Exception");
+            logger.error(((MalformedJwtException) exception).getMessage());
+            logger.error("Format Token Salah!");
+            errorDetails.put("code", HttpStatus.FORBIDDEN.value());
+            errorDetails.put("message", "Format Token Salah!");
+        }
+
+        if (exception instanceof ExpiredJwtException){
+            logger.error("Expired Jwt Exception");
+            logger.error(((ExpiredJwtException) exception).getMessage());
+            logger.error("Token Kadaluarsa!");
+            errorDetails.put("code", HttpStatus.FORBIDDEN.value());
+            errorDetails.put("message", "Token Kadaluarsa!");
+        }
+
+        response.setStatus(HttpStatus.FORBIDDEN.value());
+        response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+
+        mapper.writeValue(response.getWriter(), errorDetails);
     }
 }
